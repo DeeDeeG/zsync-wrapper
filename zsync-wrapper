@@ -13,9 +13,6 @@ OUTPUTFILENAME=${ZSYNCFILENAME%\.zsync}
 #ZSYNCFILENAME=$2
 #OUTPUTFILENAME=$3
 
-echo "echoing filename from url"
-echo "${URL##*/}"
-
 # Fetch the new Zsync file (if it was updated at the server) and record if it changed
 MODDATE1=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
 
@@ -24,6 +21,15 @@ wget -N -c "$URL" -P ~/.zsyncs/
 MODDATE2=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
 
 # DEBUGGING
+if [ $DEBUGGING ]; then
+  echo "echoing filename from url"
+  echo "${URL##*/}"
+  echo
+
+  echo "echoing extracted substring (payload file from \"file.zsync\" filename)"
+  echo ${ZSYNCFILENAME%\.zsync}
+  echo
+
   echo "echoing \$1"
   echo $1
 
@@ -51,6 +57,7 @@ MODDATE2=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
   echo "echoing \$MODDATE2"
   echo $MODDATE2
   echo
+fi
 # /DEBUGGING
 
 if [ "$MODDATE1" != "$MODDATE2" ]; then

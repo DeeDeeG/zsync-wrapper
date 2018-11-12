@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# Get / Set Variables
+URL=$1
+ZSYNCFILENAME=$2
+OUTPUTFILENAME=$3
+
+
+# Fetch the new Zsync file (if it was updated at the server) and record if it changed
+MODDATE1=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
+
+wget -N -c "$URL" -P ~/.zsyncs/
+
+MODDATE2=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
+
+# DEBUGGING
+  echo "echoing \$1"
+  echo $1
+
+  echo "echoing \$URL"
+  echo $URL
+  echo
+
+  echo "echoing \$2"
+  echo $2
+
+  echo "echoing \$ZSYNCFILENAME"
+  echo $ZSYNCFILENAME
+  echo
+
+  echo "echoing \$3"
+  echo $3
+
+  echo "echoing \$OUTPUTFILENAME"
+  echo $OUTPUTFILENAME
+  echo
+
+  echo "echoing \$MODDATE1"
+  echo $MODDATE1
+
+  echo "echoing \$MODDATE2"
+  echo $MODDATE2
+  echo
+# /DEBUGGING
+
+if [ "$MODDATE1" != "$MODDATE2" ]; then
+  # Run the "payload" zsync command for this script
+    zsync $URL -k ~/.zsyncs/$ZSYNCFILENAME -i ~/Downloads/$OUTPUTFILENAME -o ~/Downloads/$OUTPUTFILENAME
+else
+  # Nothing to do!
+  echo "Zsync file already up-to-date. Nothing to update or download."
+fi

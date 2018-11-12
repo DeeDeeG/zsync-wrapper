@@ -3,12 +3,10 @@
 # Get / Set Variables
 URL=$1
 ZSYNCFILENAME=${URL##*/}
-OUTPUTFILENAME=$3
-
-echo "echoing extracted substring (payload file from \"file.zsync\" filename)"
-echo ${ZSYNCFILENAME%\.zsync}
+OUTPUTFILENAME=${ZSYNCFILENAME%\.zsync}
 
 #ZSYNCFILENAME=$2
+#OUTPUTFILENAME=$3
 
 echo "echoing filename from url"
 echo "${URL##*/}"

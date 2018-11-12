@@ -5,6 +5,8 @@ URL=$1
 ZSYNCFILENAME=$2
 OUTPUTFILENAME=$3
 
+echo "echoing filename from url"
+echo "${URL##*/}"
 
 # Fetch the new Zsync file (if it was updated at the server) and record if it changed
 MODDATE1=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`

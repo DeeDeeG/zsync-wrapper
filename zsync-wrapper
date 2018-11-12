@@ -2,8 +2,10 @@
 
 # Get / Set Variables
 URL=$1
-ZSYNCFILENAME=$2
+ZSYNCFILENAME=${URL##*/}
 OUTPUTFILENAME=$3
+
+#ZSYNCFILENAME=$2
 
 echo "echoing filename from url"
 echo "${URL##*/}"

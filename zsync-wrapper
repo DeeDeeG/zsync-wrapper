@@ -16,7 +16,7 @@ OUTPUTFILENAME=${ZSYNCFILENAME%\.zsync}
 # Fetch the new Zsync file (if it was updated at the server) and record if it changed
 MODDATE1=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
 
-wget -N -c "$URL" -P ~/.zsyncs/
+wget -N "$URL" -P ~/.zsyncs/
 
 MODDATE2=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
 

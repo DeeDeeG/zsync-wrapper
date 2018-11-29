@@ -9,6 +9,15 @@ fi
 
 ZSYNCFILENAME=${URL##*/}
 OUTPUTFILENAME=${ZSYNCFILENAME%\.zsync}
+ZSYNCSDIR=~/.zsyncs/
+
+echo "echoing \$ZSYNCSDIR"
+echo $ZSYNCSDIR
+
+ZSYNCFILEWITHFULLPATH="$ZSYNCSDIR$ZSYNCFILENAME"
+
+echo "echoing \$ZSYNCFILEWITHFULLPATH"
+echo $ZSYNCFILEWITHFULLPATH
 
 #ZSYNCFILENAME=$2
 #OUTPUTFILENAME=$3
@@ -16,7 +25,11 @@ OUTPUTFILENAME=${ZSYNCFILENAME%\.zsync}
 # Fetch the new Zsync file (if it was updated at the server) and record if it changed
 MODDATE1=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
 
-wget -N "$URL" -P ~/.zsyncs/
+if test -e "$ZSYNCFILEWITHFULLPATH"
+then zflag="-z $ZSYNCFILEWITHFULLPATH"
+else zflag=
+fi
+curl -o "$ZSYNCFILEWITHFULLPATH" $zflag "$URL"
 
 MODDATE2=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
 

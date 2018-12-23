@@ -15,6 +15,12 @@ ZSYNCFILEWITHFULLPATH="$ZSYNCSDIR$ZSYNCFILENAME"
 #ZSYNCFILENAME=$2
 #OUTPUTFILENAME=$3
 
+# Make a ".zsyncs" directory in user's home, if it is not present
+if [ ! -d "$ZSYNCSDIR" ]; then
+  echo "Making a \".zsyncs\" folder in your home directory (to hold .zsync files from this script.)"
+  mkdir $ZSYNCSDIR
+fi
+
 # Fetch the new Zsync file (if it was updated at the server) and record if it changed
 MODDATE1=`stat -c %y ~/.zsyncs/$ZSYNCFILENAME`
 
